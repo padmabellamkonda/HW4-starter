@@ -2,6 +2,5 @@
 -- step and no join back. It must return the same rows.
 -- Required columns: genre_id, movie_id, movie_mean, genre_mean
 --
--- Prediction (commit before running): which two steps of the chain disappear?
-
+-- Prediction (commit before running): which two steps of the chain disappear? (Step1) The genre_means step: It was a GROUP BY that collapsed movies to one row per genre. (Step2) The JOIN back to genre_means. The genre mean is now next to every movie row with a window. The rows aren't collapsed, join is not needed.
 -- YOUR QUERY HERE

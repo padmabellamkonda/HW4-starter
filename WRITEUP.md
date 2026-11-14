@@ -7,6 +7,7 @@ Explanation:
 Result:
 Explanation:
 ## T1c
--- Prediction (commit before running):
+-- Prediction (commit before running): which two steps of the chain disappear? (Step1) The genre_means step: It was a GROUP BY that collapsed movies to one row per genre. (Step2) The JOIN back to genre_means. The genre mean is now next to every movie row with a window. The rows aren't collapsed, join is not needed.
+
 Result:
 Explanation:
