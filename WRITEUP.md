@@ -10,3 +10,27 @@ Explanation: My prediction was 0.25. The result was 0.452. I assumed the two con
 Prediction (commit before running): which two steps of the chain disappear? (Step1) The genre_means step: It was a GROUP BY that collapsed movies to one row per genre. (Step2) The JOIN back to genre_means. The genre mean is now next to every movie row with a window. The rows aren't collapsed, join is not needed.
 Result:269 rows from the chain and 269 from the rewrite. They have the same rows.
 Explanation: The Week 6 chain needed genre_means. GROUP BY always returns one row per group. The rows that were grouped are gone. So the chain had to JOIN genre_means back to get the genre mean next to each movie.  The window gives me the genre mean and keeps every row. Both versions return 269 rows. With no join, there is no chance of a join changing the row count.
+## T2(version1)
+Prediction (commit before running): about 55 rows, because most occupations are large, but a few small ones won't have three movies with 20 ratings.
+Result:
+Explanation: 
+## T2(version2)
+Prediction (commit before running): 55 rows, the same as version 1, because I don't expect any ties at third place. A tie would make RANK return more rows.
+Result:
+Explanation: 
+## T3a
+Prediction (commit before running): 
+Result:
+Explanation: 
+## T3b
+Prediction (commit before running): 
+Result:
+Explanation: 
+## T4
+Prediction (commit before running): 
+Result:
+Explanation: 
+## T4d
+Prediction (commit before running): 
+Result:
+Explanation: 

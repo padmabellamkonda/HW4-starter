@@ -2,7 +2,5 @@
 -- only, keeping rows with pos <= 3.
 -- Required columns: occupation, pos, movie_id, title, n, mean_rating
 --
--- Prediction (commit before running): ______ rows, which is (more / the same / fewer)
--- than version 1, because ______.
-
+-- Prediction (commit before running): 55 rows, the same as version 1, because I don't expect any ties at third place. A tie would make RANK return more rows.
 -- YOUR QUERY HERE
