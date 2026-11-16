@@ -6,6 +6,5 @@
 -- Suggested steps (one CTE each): gap with LAG; a 0/1 new_session flag;
 -- a running SUM of the flag with an explicit ROWS frame; GROUP BY.
 --
--- Prediction (commit before running): median ratings per session = ______.
-
+-- Prediction (commit before running): median ratings per session = about 5, because most users rate a few movies and stop. Agap over 30 minutes starts a new session.
 -- YOUR QUERY HERE

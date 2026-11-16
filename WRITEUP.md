@@ -22,11 +22,11 @@ Explanation: I guessed the same as version 1 and got 28, so one more. I was wron
 Top-picks for profession: I need only 3 picks becuase the page has 3 slots. I would use ROW_NUMBER. It would keep them the same. 
 Rule for DENSE_RANK: 
 ## T3a
-Prediction (commit before running): 
+Prediction (commit before running): median ratings per session = about 5, because most users rate a few movies and stop. Agap over 30 minutes starts a new session.
 Result: 
 Explanation: 
 ## T3b
-Prediction (commit before running): 
+Prediction (commit before running): the two columns disagree on a few rows, because only rows that share the same timestamp can be different. The default frame counts by value. 
 Result:
 Explanation: 
 ## T4

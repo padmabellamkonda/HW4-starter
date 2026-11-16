@@ -4,7 +4,5 @@
 --   run_rows:    the same, ORDER BY timestamp, movie_id, with an explicit
 --                ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW frame
 --
--- Prediction (commit before running): the two columns disagree on
--- (no rows / a few rows / many rows), because ______.
-
+-- Prediction (commit before running): the two columns disagree on a few rows, because only rows that share the same timestamp can be different. This is because the default frame counts by value. 
 -- YOUR QUERY HERE
