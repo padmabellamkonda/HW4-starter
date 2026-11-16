@@ -12,15 +12,18 @@ Result:269 rows from the chain and 269 from the rewrite. They have the same rows
 Explanation: The Week 6 chain needed genre_means. GROUP BY always returns one row per group. The rows that were grouped are gone. So the chain had to JOIN genre_means back to get the genre mean next to each movie.  The window gives me the genre mean and keeps every row. Both versions return 269 rows. With no join, there is no chance of a join changing the row count.
 ## T2(version1)
 Prediction (commit before running): about 55 rows, because most occupations are large, but a few small ones won't have three movies with 20 ratings.
-Result:
-Explanation: 
+Result: "rows_row_number": 27
+Explanation: I guessed 55 and got 27, so I was very off. ROW_NUMBER gives at most 3 rows per occupation. The 20-rating rule counts per occupation, so small ones don't qualify. 11 have no rows, and executive and technician have under 3. My tie-breaker is movie_id so the result is the same every run.
 ## T2(version2)
 Prediction (commit before running): 55 rows, the same as version 1, because I don't expect any ties at third place. A tie would make RANK return more rows.
-Result:
-Explanation: 
+Result: "rows_rank": 28
+Explanation: I guessed the same as version 1 and got 28, so one more. I was wrong. RANK keeps tied movies. In educator, Dr. Strangelove and Rear Window tied for third, so both stayed. ROW_NUMBER only keeps one.
+
+Top-picks for profession: I need only 3 picks becuase the page has 3 slots. I would use ROW_NUMBER. It would keep them the same. 
+Rule for DENSE_RANK: 
 ## T3a
 Prediction (commit before running): 
-Result:
+Result: 
 Explanation: 
 ## T3b
 Prediction (commit before running): 
