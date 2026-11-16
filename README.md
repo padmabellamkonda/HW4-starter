@@ -33,4 +33,6 @@ Task 4 works on a copy in `output/`. Results go to `output/`, and
 
 Record here what you used an assistant for, and for what:
 
-- (your entries)
+- T2: Was confused if RANK can return more rows than ROW_NUMBER. used claude to clarify. 
+- T3: the starter suggested using a 0/1 new_session flag so claude helped me understand what flags were and how I could use the sum of them. 
+- Used Claude to clear up any confusions or clarify any syntax. 

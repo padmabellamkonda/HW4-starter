@@ -35,11 +35,33 @@ A:plan before: SEARCH    plan after: SEARCH
 B:plan before: SCAN    plan after: SEARCH
 C:plan before: SCAN    plan after: SEARCH
 D:plan before: SCAN    plan after: SCAN
-
+Indexes chosen: idx_ratings_movie_rating on ratings(movie_id, rating), and idx_ratings_ts on ratings(timestamp).
 Result:
-Explanation: 
+A: plan before: SEARCH    plan after: SEARCH    
+B: plan before: SCAN      plan after: SEARCH    
+C: plan before: SCAN      plan after: SEARCH   
+D: plan before: SCAN      plan after: SCAN     
+All four plans matched my predictions. The two indexes added 2,539,520 bytes, so the database grew from 3,629,056 to 6,168,576 bytes. All answers stayed the same.
+
+Explanation:
+Why I chose these indexes: B and C were scans, so I indexed them. B uses a covering index, so SQLite never goes back to the table for rating. C uses the bare timestamp in a range.
+
+Why A used an index before I added any: PRIMARY KEY (user_id, movie_id) built an index silently. user_id is its leftmost column, so A searched without my help.
+
+What the TEMP B-TREE adds: it is a sort SQLite builds for this one query. The key's index is not in timestamp order, so my indexes do not remove it.
+
+How many bytes the indexes use: 2,539,520 bytes. Every INSERT now also updates both indexes.
+ 
 ## T4d
 Prediction (commit before running): plan of D_month after your indexes is SCAN, because strftime is a function on the column. Plan of this rewrite is SEARCH using idx_ratings_ts, because the column is bare.
  
 Result:
-Explanation: 
+Why the original stays a SCAN: strftime is a function on the column. The index is sorted by timestamp, but the query asks about a value computed from it, and that value is in no index. So SQLite computes it for every row. It only reads idx_ratings_ts instead of the table.That still reads every row.
+
+What the rewrite changes: it moves the computation to the constant side and leaves the column bare. Now SQLite can jump to the month's rows, so the plan becomes SEARCH.
+
+Did it change my choice of indexes: No. idx_ratings_ts already served C, and now it serves the rewrite too.
+
+## T5
+
+I recommend only two indexes. I like to think of an index as a library catalogue. It is a sorted copy of a column. Without one, it reads every row. This is a SCAN. With a copy, it can automatically go to matching rows. This is a SEARCH. I would add (movie_id, rating). It is a covering index, so the table is never touched. The movie page query went from 2.99 ms to 0.013 ms. I would also add timestamp. The recent query went from 2.46 ms to 0.027 ms. I would leave out an index for the profile query. The primary key already gives it a SEARCH, and its time stayed about the same, 0.098 ms to 0.101 ms. An index will not fix strftime, because a function on the column stays a SCAN. Rewriting it as a range on the bare column made it a SEARCH, 3.63 ms to 0.25 ms. The risk is slower writes. Every INSERT must also update both indexes, so writes slow down as indexes pile up. 

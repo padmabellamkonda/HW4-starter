@@ -9,3 +9,5 @@
 
 
 -- YOUR QUERY HERE
+SELECT COUNT(*) FROM ratings
+WHERE timestamp >= ? AND timestamp < ?;
