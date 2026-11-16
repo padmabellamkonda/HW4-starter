@@ -8,3 +8,27 @@
 --
 -- Prediction (commit before running): median ratings per session = about 5, because most users rate a few movies and stop. Agap over 30 minutes starts a new session.
 -- YOUR QUERY HERE
+WITH gaps AS (
+  SELECT user_id, movie_id, timestamp AS ts,
+         timestamp - LAG(timestamp) OVER (
+                PARTITION BY user_id
+                ORDER BY timestamp, movie_id) AS gap
+  FROM ratings
+),
+flags AS (
+  SELECT *, (gap IS NULL OR gap > 1800) AS new_session
+  FROM gaps
+),
+numbered AS (
+  SELECT *, SUM(new_session) OVER (
+                PARTITION BY user_id
+                ORDER BY ts, movie_id
+                ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS session_no
+  FROM flags
+)
+SELECT user_id, session_no,
+       COUNT(*) AS n_ratings,
+       MIN(ts) AS start_ts,
+       MAX(ts) - MIN(ts) AS duration_s
+FROM numbered
+GROUP BY user_id, session_no;

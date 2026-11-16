@@ -23,12 +23,12 @@ Top-picks for profession: I need only 3 picks becuase the page has 3 slots. I wo
 Rule for DENSE_RANK: 
 ## T3a
 Prediction (commit before running): median ratings per session = about 5, because most users rate a few movies and stop. Agap over 30 minutes starts a new session.
-Result: 
-Explanation: 
+Result: median ratings per session = 11.0
+Explanation: My guess of 5 was too low. Most users have one long session, so the median is 11. The first rating of each user has a NULL gap, so it starts session 1. The running SUM of the flags numbers the sessions after that.
 ## T3b
 Prediction (commit before running): the two columns disagree on a few rows, because only rows that share the same timestamp can be different. The default frame counts by value. 
-Result:
-Explanation: 
+Result: The two columns disagree on many rows, 49,787 of 100,000, because every one of those rows shares a timestamp with another rating from the same user.
+Explanation: My reason was right, but it was more than a few. 75,772 rows share a timestamp with another rating from the same user, so ties are common. The default frame counts by value, so a tied row sees every row with the same timestamp.
 ## T4
 Prediction (commit before running): 
 Result:
