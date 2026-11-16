@@ -30,10 +30,16 @@ Prediction (commit before running): the two columns disagree on a few rows, beca
 Result: The two columns disagree on many rows, 49,787 of 100,000, because every one of those rows shares a timestamp with another rating from the same user.
 Explanation: My reason was right, but it was more than a few. 75,772 rows share a timestamp with another rating from the same user, so ties are common. The default frame counts by value, so a tied row sees every row with the same timestamp.
 ## T4
-Prediction (commit before running): 
+Prediction (commit before running):  
+A:plan before: SEARCH    plan after: SEARCH
+B:plan before: SCAN    plan after: SEARCH
+C:plan before: SCAN    plan after: SEARCH
+D:plan before: SCAN    plan after: SCAN
+
 Result:
 Explanation: 
 ## T4d
-Prediction (commit before running): 
+Prediction (commit before running): plan of D_month after your indexes is SCAN, because strftime is a function on the column. Plan of this rewrite is SEARCH using idx_ratings_ts, because the column is bare.
+ 
 Result:
 Explanation: 

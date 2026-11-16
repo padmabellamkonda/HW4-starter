@@ -3,6 +3,9 @@
 -- copy of the database and measures plans, time and size before and after.
 --
 -- Prediction (commit before running), for each app query:
---   plan before: ______    plan after: ______
+--   A:plan before: SEARCH    plan after: SEARCH
+--   B:plan before: SCAN    plan after: SEARCH
+--   C:plan before: SCAN    plan after: SEARCH
+--   D:plan before: SCAN    plan after: SCAN
 
 -- YOUR INDEXES HERE

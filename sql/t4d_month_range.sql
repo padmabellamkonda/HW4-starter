@@ -5,7 +5,7 @@
 -- run.py fills in the month boundaries and checks the counts match.
 -- Required: one column, the count.
 --
--- Prediction (commit before running): plan of D_month after your indexes ______;
--- plan of this rewrite ______.
+-- Prediction (commit before running): plan of D_month after your indexes is SCAN, because strftime is a function on the column. Plan of this rewrite is SEARCH using idx_ratings_ts, because the column is bare.
+
 
 -- YOUR QUERY HERE
