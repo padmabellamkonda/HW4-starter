@@ -20,7 +20,7 @@ Result: "rows_rank": 28
 Explanation: I guessed the same as version 1 and got 28, so one more. I was wrong. RANK keeps tied movies. In educator, Dr. Strangelove and Rear Window tied for third, so both stayed. ROW_NUMBER only keeps one.
 
 Top-picks for profession: I need only 3 picks becuase the page has 3 slots. I would use ROW_NUMBER. It would keep them the same. 
-Rule for DENSE_RANK: 
+Rule for DENSE_RANK: show every movie in the top three distinct mean ratings. DENSE_RANK works since ties share a number and nothing gets skipped. ROW_NUMBER would drop a tied movie. RANK would skip a number after a tie and could lose the third level.
 ## T3a
 Prediction (commit before running): median ratings per session = about 5, because most users rate a few movies and stop. Agap over 30 minutes starts a new session.
 Result: median ratings per session = 11.0
